@@ -87,7 +87,7 @@ export const DEMO_SUGGESTIONS_AR = {
 // Application configuration
 export const APP_CONFIG = {
   TOTAL_STEPS: 3,
-  VALIDATION_POLLING_INTERVAL: 1000, // milliseconds
+  VALIDATION_POLLING_INTERVAL: 100, // milliseconds - faster validation check
   API_TIMEOUT: 30000, // 30 seconds
   AI_PROCESSING_DELAY: 1000, // milliseconds for fallback content
   OPENAI_MODEL: 'gpt-3.5-turbo',

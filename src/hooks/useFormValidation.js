@@ -25,12 +25,12 @@ export const useFormValidation = (methods, currentStep) => {
     };
   }, [checkCurrentStepValid]);
 
-  // Re-check validation more frequently when there are errors
+  // Re-check validation more frequently
   useEffect(() => {
     const hasErrors = Object.keys(errors).length > 0
     const interval = setInterval(() => {
       checkCurrentStepValid();
-    }, hasErrors ? 500 : APP_CONFIG.VALIDATION_POLLING_INTERVAL); // Check more frequently if there are errors
+    }, hasErrors ? 100 : APP_CONFIG.VALIDATION_POLLING_INTERVAL); // Check every 100ms for instant feedback
 
     return () => clearInterval(interval);
   }, [checkCurrentStepValid, errors]);

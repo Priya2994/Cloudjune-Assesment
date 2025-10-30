@@ -68,30 +68,27 @@ export const FormField = ({ name, label, type = "text", placeholder, required = 
       }
     }
     
-    // Mobile field: proper mobile number format
+    // Mobile field: proper mobile number format - exactly 10 digits
     if (name === 'mobile' || name === 'phone') {
       rules.validate = {
         validMobile: (value) => {
           if (!value) return true;
           
-          // First check: only digits and optional + at start
-          if (!/^(\+?[0-9]+)$/.test(value)) {
+          // First check: only digits (no + or other characters)
+          if (!/^[0-9]+$/.test(value)) {
             return t('validation.phoneOnlyNumbers');
           }
           
           // Second check: must not contain any letters or special characters
-          if (/[a-zA-Z\s\-().,;:!@#$%^&*]/.test(value)) {
+          if (/[a-zA-Z\s\-().,;:!@#$%^&*+]/.test(value)) {
             return t('validation.phoneOnlyNumbers');
           }
           
-          // Remove optional + for length check
-          const cleanNumber = value.replace(/^\+/, '');
-          
-          // Must have at least 10 digits and max 15 digits
-          if (cleanNumber.length < 10) {
+          // Must be exactly 10 digits
+          if (value.length < 10) {
             return t('validation.phoneTooShort');
           }
-          if (cleanNumber.length > 15) {
+          if (value.length > 10) {
             return t('validation.phoneTooLong');
           }
           
@@ -125,15 +122,18 @@ export const FormField = ({ name, label, type = "text", placeholder, required = 
       return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(currentValue);
     }
     
-    // For mobile field, check if it's a valid mobile number
+    // For mobile field, check if it's a valid mobile number - exactly 10 digits
     if (name === 'mobile' || name === 'phone') {
       if (currentValue.length === 0) return true; // Allow empty while typing
       
-      // Reject any letters, spaces, or special characters immediately
-      if (/[a-zA-Z\s\-().,;:!@#$%^&*]/.test(currentValue)) return false;
+      // Reject any letters, spaces, or special characters immediately (including +)
+      if (/[a-zA-Z\s\-().,;:!@#$%^&*+]/.test(currentValue)) return false;
       
-      // Only allow digits and optional + at the start
-      if (!/^(\+?[0-9]*)$/.test(currentValue)) return false;
+      // Only allow pure digits
+      if (!/^[0-9]+$/.test(currentValue)) return false;
+      
+      // Must be exactly 10 digits for green border
+      if (currentValue.length !== 10) return false;
       
       return true;
     }
@@ -171,6 +171,15 @@ export const FormField = ({ name, label, type = "text", placeholder, required = 
   
   // Determine if error should show
   const shouldShowError = hasError && !isValid
+  
+  // Trigger validation immediately on change
+  const handleChange = (e) => {
+    registerField.onChange(e);
+    // Trigger validation check immediately
+    if (window.checkCurrentStepValid) {
+      setTimeout(() => window.checkCurrentStepValid(), 0);
+    }
+  }
 
   return (
     <div>
@@ -182,6 +191,7 @@ export const FormField = ({ name, label, type = "text", placeholder, required = 
         className={`form-input transition-colors duration-200 ${getBorderColor()}`}
         placeholder={placeholder}
         {...registerField}
+        onChange={handleChange}
         {...props}
       />
       {shouldShowError && (
