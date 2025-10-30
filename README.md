@@ -368,9 +368,3 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 - Use consistent naming conventions
 - Add comments for complex logic
 - Test new features thoroughly
-
----
-
-## 📞 Support
-
-For questions or issues, please refer to the troubleshooting section or check the browser console for specific error messages.

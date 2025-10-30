@@ -10,7 +10,7 @@ import { useFormValidation } from './hooks/useFormValidation'
 import { useAISuggestion } from './hooks/useAISuggestion'
 import { mockSubmitApplication } from './utils/apiUtils'
 import { getFieldsForStep } from './utils/formUtils'
-import { FORM_DEFAULT_VALUES, APP_CONFIG, ERROR_MESSAGES } from './constants'
+import { FORM_DEFAULT_VALUES, APP_CONFIG } from './constants'
 
 function App() {
   const { t } = useTranslation()
