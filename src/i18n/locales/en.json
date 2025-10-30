@@ -2,7 +2,12 @@
   "app": {
     "title": "Application Form",
     "subtitle": "Complete all steps to submit your application",
-    "step": "Step {{current}}"
+    "step": "Step {{current}}",
+    "restoreProgress": "Restore Progress?",
+    "restoreMessage": "We found a saved application in progress. Would you like to continue where you left off?",
+    "restore": "Restore",
+    "startFresh": "Start Fresh",
+    "progressSaved": "Progress automatically saved"
   },
   "navigation": {
     "previous": "Previous Step",

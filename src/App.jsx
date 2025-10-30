@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import SuccessScreen from './components/SuccessScreen'
@@ -10,6 +10,7 @@ import { useFormValidation } from './hooks/useFormValidation'
 import { useAISuggestion } from './hooks/useAISuggestion'
 import { mockSubmitApplication } from './utils/apiUtils'
 import { getFieldsForStep } from './utils/formUtils'
+import { saveFormData, loadFormData, saveCurrentStep, loadCurrentStep, clearFormData, hasSavedData } from './utils/localStorage'
 import { FORM_DEFAULT_VALUES, APP_CONFIG } from './constants'
 
 function App() {
@@ -18,15 +19,90 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submissionData, setSubmissionData] = useState(null)
+  const [showRestorePrompt, setShowRestorePrompt] = useState(false)
+  const [formKey, setFormKey] = useState(0) // Key to force re-render
+  const [allowAutoSave, setAllowAutoSave] = useState(false) // Control auto-save
 
-  // Initialize form
+  // Initialize form with default values (will be overridden if loading from localStorage)
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: FORM_DEFAULT_VALUES
   })
 
-  const { handleSubmit, setValue, trigger } = methods
+  const { handleSubmit, setValue, trigger, watch, reset } = methods
+
+  // Watch all form values for auto-save
+  const formValues = watch()
+
+  // Load saved data on mount
+  useEffect(() => {
+    if (hasSavedData()) {
+      setShowRestorePrompt(true)
+      // Don't allow auto-save until user makes a choice
+      setAllowAutoSave(false)
+    } else {
+      // No saved data, allow auto-save immediately
+      setAllowAutoSave(true)
+    }
+  }, [])
+
+  // Auto-save form data whenever it changes
+  useEffect(() => {
+    // Only run auto-save if explicitly allowed
+    if (!allowAutoSave) {
+      return
+    }
+
+    const timeoutId = setTimeout(() => {
+      // Only save if not submitted and has some data
+      if (!isSubmitted && formValues) {
+        saveFormData(formValues)
+        saveCurrentStep(currentStep)
+      }
+    }, 500) // Debounce saves by 500ms
+
+    return () => clearTimeout(timeoutId)
+  }, [formValues, currentStep, isSubmitted, allowAutoSave])
+
+  // Handle restore saved data
+  const handleRestoreSavedData = () => {
+    const savedData = loadFormData()
+    const savedStep = loadCurrentStep()
+    
+    if (savedData) {
+      // Remove the savedAt timestamp from data
+      const { savedAt: _savedAt, ...formDataToRestore } = savedData
+      const completeData = { ...FORM_DEFAULT_VALUES, ...formDataToRestore }
+      // Use reset to populate all form values at once
+      reset(completeData, {
+        keepDefaultValues: false,
+        keepDirty: false,
+        keepErrors: false
+      })
+      setCurrentStep(savedStep)
+      setFormKey(prev => prev + 1)
+      setTimeout(() => {
+        trigger().then(() => {
+          checkCurrentStepValid()
+        })
+      }, 200)
+    } else {
+      console.log('No saved data found')
+    }
+    
+    // Enable auto-save after restore choice is made
+    setAllowAutoSave(true)
+    setShowRestorePrompt(false)
+  }
+
+  // Handle discard saved data
+  const handleDiscardSavedData = () => {
+    clearFormData()
+    // Enable auto-save after discard choice is made
+    setAllowAutoSave(true)
+    setShowRestorePrompt(false)
+  }
 
   // Custom hooks
   const { isButtonEnabled, isStepValid, checkCurrentStepValid } = useFormValidation(methods, currentStep)
@@ -53,7 +129,6 @@ function App() {
     setIsSubmitting(true)
     
     try {
-      console.log('Submitting application data:', data)
       await new Promise(resolve => setTimeout(resolve, 2000))
       
       const mockApiResponse = await mockSubmitApplication(data)
@@ -61,6 +136,8 @@ function App() {
       if (mockApiResponse.success) {
         setSubmissionData(mockApiResponse)
         setIsSubmitted(true)
+        // Clear saved data after successful submission
+        clearFormData()
         console.log('Submission successful:', mockApiResponse)
       } else {
         throw new Error(mockApiResponse.message || t('validation.required'))
@@ -68,7 +145,6 @@ function App() {
       
     } catch (error) {
       console.error('Submission error:', error)
-      alert(`Submission failed: ${error.message}`)
     } finally {
       setIsSubmitting(false)
     }
@@ -92,8 +168,9 @@ function App() {
   const resetForm = () => {
     setIsSubmitted(false)
     setSubmissionData(null)
-    methods.reset()
+    reset(FORM_DEFAULT_VALUES)
     setCurrentStep(1)
+    clearFormData()
   }
 
   // Success screen
@@ -111,6 +188,35 @@ function App() {
     <FormProvider {...methods}>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
         <div className="container mx-auto px- md:px-4">
+          
+          {/* Restore Progress Prompt */}
+          {showRestorePrompt && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+              <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-3">
+                  📋 {t('app.restoreProgress') || 'Restore Progress?'}
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  {t('app.restoreMessage') || 'We found a saved application in progress. Would you like to continue where you left off?'}
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleRestoreSavedData}
+                    className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium"
+                  >
+                    {t('app.restore') || 'Restore'}
+                  </button>
+                  <button
+                    onClick={handleDiscardSavedData}
+                    className="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 font-medium"
+                  >
+                    {t('app.startFresh') || 'Start Fresh'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          
           <div className="bg-white rounded-2xl shadow-2xl max-w-4xl mx-auto overflow-hidden">
             
             {/* Header */}
@@ -128,7 +234,7 @@ function App() {
             <StepIndicator currentStep={currentStep} isStepValid={isStepValid} />
             
             {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" key={formKey}>
               {renderCurrentStep()}
               
               {/* Navigation buttons */}

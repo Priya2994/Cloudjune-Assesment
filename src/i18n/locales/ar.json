@@ -2,7 +2,12 @@
   "app": {
     "title": "نموذج الطلب",
     "subtitle": "أكمل جميع الخطوات لتقديم طلبك",
-    "step": "الخطوة {{current}}"
+    "step": "الخطوة {{current}}",
+    "restoreProgress": "استعادة التقدم؟",
+    "restoreMessage": "وجدنا طلبًا محفوظًا قيد التقدم. هل تريد المتابعة من حيث توقفت؟",
+    "restore": "استعادة",
+    "startFresh": "بدء جديد",
+    "progressSaved": "تم حفظ التقدم تلقائيًا"
   },
   "navigation": {
     "previous": "الخطوة السابقة",
