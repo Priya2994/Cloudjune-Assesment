@@ -1,0 +1,115 @@
+{
+  "app": {
+    "title": "نموذج الطلب",
+    "subtitle": "أكمل جميع الخطوات لتقديم طلبك",
+    "step": "الخطوة {{current}}"
+  },
+  "navigation": {
+    "previous": "الخطوة السابقة",
+    "next": "الخطوة التالية",
+    "submit": "تقديم الطلب",
+    "submitting": "جاري التقديم..."
+  },
+  "steps": {
+    "step1": "المعلومات الشخصية",
+    "step2": "معلومات الأسرة والمالية",
+    "step3": "وصف الحالة"
+  },
+  "fields": {
+    "name": "الاسم الكامل",
+    "nationalId": "رقم الهوية الوطنية",
+    "dateOfBirth": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "address": "العنوان",
+    "city": "المدينة",
+    "state": "الولاية/المحافظة",
+    "country": "البلد",
+    "phone": "رقم الهاتف",
+    "email": "عنوان البريد الإلكتروني",
+    "maritalStatus": "الحالة الاجتماعية",
+    "dependents": "عدد المعالين",
+    "employmentStatus": "حالة التوظيف",
+    "monthlyIncome": "الدخل الشهري",
+    "housingStatus": "حالة السكن",
+    "financialSituation": "الوضع المالي",
+    "employmentCircumstances": "ظروف التوظيف",
+    "reasonForApplying": "سبب التقديم"
+  },
+  "placeholders": {
+    "enterName": "أدخل اسمك الكامل",
+    "enterNationalId": "أدخل رقم هويتك الوطنية",
+    "selectGender": "اختر جنسك",
+    "enterAddress": "أدخل عنوانك",
+    "enterCity": "أدخل مدينتك",
+    "enterState": "أدخل ولايتك/محافظتك",
+    "enterCountry": "أدخل بلدك",
+    "enterPhone": "أدخل رقم هاتفك",
+    "enterEmail": "أدخل عنوان بريدك الإلكتروني",
+    "selectMaritalStatus": "اختر حالتك الاجتماعية",
+    "enterDependents": "أدخل عدد المعالين",
+    "selectEmploymentStatus": "اختر حالة التوظيف",
+    "enterIncome": "أدخل دخلك الشهري",
+    "selectHousingStatus": "اختر حالة السكن",
+    "describeFinancialSituation": "اوصف وضعك المالي الحالي",
+    "describeEmployment": "اوصف ظروف توظيفك",
+    "explainReason": "اشرح سبب تقديمك للمساعدة"
+  },
+  "options": {
+    "male": "ذكر",
+    "female": "أنثى",
+    "otherGender": "آخر",
+    "single": "أعزب",
+    "married": "متزوج",
+    "divorced": "مطلق",
+    "widowed": "أرمل",
+    "employed": "موظف",
+    "unemployed": "عاطل عن العمل",
+    "selfEmployed": "يعمل لحسابه الخاص",
+    "student": "طالب",
+    "retired": "متقاعد",
+    "owned": "ملك",
+    "rented": "مستأجر",
+    "withFamily": "يعيش مع الأسرة",
+    "otherHousing": "آخر"
+  },
+  "ai": {
+    "generateSuggestion": "إنشاء اقتراح بالذكاء الاصطناعي",
+    "loading": "جاري إنشاء الاقتراح...",
+    "useSuggestion": "استخدم هذا الاقتراح",
+    "editSuggestion": "تعديل الاقتراح",
+    "discard": "تجاهل",
+    "error": "فشل في إنشاء الاقتراح. يرجى المحاولة مرة أخرى.",
+    "errorGenerating": "خطأ في إنشاء الاقتراح",
+    "close": "إغلاق"
+  },
+  "success": {
+    "title": "تم تقديم الطلب بنجاح!",
+    "message": "تم استلام طلبك وهو قيد المراجعة.",
+    "referenceId": "رقم المرجع",
+    "estimatedTime": "الوقت المقدر للمعالجة",
+    "status": "الحالة",
+    "submittedAt": "تم التقديم في",
+    "applicantId": "رقم مقدم الطلب",
+    "submitAnother": "تقديم طلب آخر",
+    "print": "طباعة التأكيد"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "phone": "يرجى إدخال رقم هاتف صحيح",
+    "phoneOnlyNumbers": "يجب أن يحتوي رقم الهاتف على أرقام فقط (و + اختياري في البداية)",
+    "phoneTooShort": "يجب أن يكون رقم الهاتف 10 أرقام على الأقل",
+    "phoneTooLong": "يجب ألا يزيد رقم الهاتف عن 15 رقمًا",
+    "nameInvalid": "يجب أن يحتوي الاسم على أحرف ومسافات فقط",
+    "nationalIdInvalid": "يجب أن يحتوي الرقم الوطني على أرقام وأحرف فقط",
+    "nationalIdTooShort": "يجب أن يكون الرقم الوطني 8 أحرف بالضبط (قصير حاليًا)",
+    "nationalIdTooLong": "يجب أن يكون الرقم الوطني 8 أحرف بالضبط (طويل حاليًا)",
+    "minLength": "الحد الأدنى {{min}} أحرف مطلوب",
+    "maxLength": "الحد الأقصى {{max}} أحرف مسموح"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "switchTo": "التبديل إلى {{language}}"
+  }
+}

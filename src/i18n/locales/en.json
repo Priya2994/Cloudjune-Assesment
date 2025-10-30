@@ -1,0 +1,115 @@
+{
+  "app": {
+    "title": "Application Form",
+    "subtitle": "Complete all steps to submit your application",
+    "step": "Step {{current}}"
+  },
+  "navigation": {
+    "previous": "Previous Step",
+    "next": "Next Step",
+    "submit": "Submit Application",
+    "submitting": "Submitting..."
+  },
+  "steps": {
+    "step1": "Personal Information",
+    "step2": "Family & Financial Info",
+    "step3": "Situation Description"
+  },
+  "fields": {
+    "name": "Full Name",
+    "nationalId": "National ID",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "address": "Address",
+    "city": "City",
+    "state": "State/Province",
+    "country": "Country",
+    "phone": "Phone Number",
+    "email": "Email Address",
+    "maritalStatus": "Marital Status",
+    "dependents": "Number of Dependents",
+    "employmentStatus": "Employment Status",
+    "monthlyIncome": "Monthly Income",
+    "housingStatus": "Housing Status",
+    "financialSituation": "Financial Situation",
+    "employmentCircumstances": "Employment Circumstances",
+    "reasonForApplying": "Reason for Applying"
+  },
+  "placeholders": {
+    "enterName": "Enter your full name",
+    "enterNationalId": "Enter your national ID",
+    "selectGender": "Select your gender",
+    "enterAddress": "Enter your address",
+    "enterCity": "Enter your city",
+    "enterState": "Enter your state/province",
+    "enterCountry": "Enter your country",
+    "enterPhone": "Enter your phone number",
+    "enterEmail": "Enter your email address",
+    "selectMaritalStatus": "Select your marital status",
+    "enterDependents": "Enter number of dependents",
+    "selectEmploymentStatus": "Select your employment status",
+    "enterIncome": "Enter your monthly income",
+    "selectHousingStatus": "Select your housing status",
+    "describeFinancialSituation": "Describe your current financial situation",
+    "describeEmployment": "Describe your employment circumstances",
+    "explainReason": "Explain why you are applying for assistance"
+  },
+  "options": {
+    "male": "Male",
+    "female": "Female",
+    "otherGender": "Other",
+    "single": "Single",
+    "married": "Married",
+    "divorced": "Divorced",
+    "widowed": "Widowed",
+    "employed": "Employed",
+    "unemployed": "Unemployed",
+    "selfEmployed": "Self-employed",
+    "student": "Student",
+    "retired": "Retired",
+    "owned": "Owned",
+    "rented": "Rented",
+    "withFamily": "Living with family",
+    "otherHousing": "Other"
+  },
+  "ai": {
+    "generateSuggestion": "Generate AI Suggestion",
+    "loading": "Generating suggestion...",
+    "useSuggestion": "Use This Suggestion",
+    "editSuggestion": "Edit Suggestion",
+    "discard": "Discard",
+    "error": "Failed to generate suggestion. Please try again.",
+    "errorGenerating": "Error Generating Suggestion",
+    "close": "Close"
+  },
+  "success": {
+    "title": "Application Submitted Successfully!",
+    "message": "Your application has been received and is under review.",
+    "referenceId": "Reference ID",
+    "estimatedTime": "Estimated Processing Time",
+    "status": "Status",
+    "submittedAt": "Submitted At",
+    "applicantId": "Applicant ID",
+    "submitAnother": "Submit Another Application",
+    "print": "Print Confirmation"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "phoneOnlyNumbers": "Phone number should contain only numbers (and optional + at start)",
+    "phoneTooShort": "Phone number must be at least 10 digits",
+    "phoneTooLong": "Phone number must be no more than 15 digits",
+    "nameInvalid": "Name should only contain letters and spaces",
+    "nationalIdInvalid": "National ID must contain only digits and letters",
+    "nationalIdTooShort": "National ID must be exactly 8 characters (currently too short)",
+    "nationalIdTooLong": "National ID must be exactly 8 characters (currently too long)",
+    "minLength": "Minimum {{min}} characters required",
+    "maxLength": "Maximum {{max}} characters allowed"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "switchTo": "Switch to {{language}}"
+  }
+}
