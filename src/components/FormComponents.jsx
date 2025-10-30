@@ -111,9 +111,9 @@ export const FormField = ({ name, label, type = "text", placeholder, required = 
     
     // For national ID field, check length and characters
     if (name === 'nationalId') {
-      if (currentValue.length === 0) return true; // Allow empty while typing
-      if (currentValue.length !== 8) return false; // Must be exactly 8 characters
-      return /^[0-9a-zA-Z]{8}$/.test(currentValue); // Must be alphanumeric
+      if (currentValue.length === 0) return true;
+      if (currentValue.length !== 8) return false;
+      return /^[0-9a-zA-Z]{8}$/.test(currentValue);
     }
     
     // For email field, check if it's a valid email format
@@ -215,7 +215,7 @@ export const SelectField = ({ name, label, options, required = false, placeholde
         className="form-select"
         {...register(name, { required: required ? t('validation.required') : false })}
       >
-        <option value="">{placeholder || `Select ${label.toLowerCase()}`}</option>
+        <option value="">{placeholder || ` ${label.toLowerCase()}`}</option>
         {options?.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}
