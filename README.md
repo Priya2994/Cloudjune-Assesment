@@ -20,7 +20,7 @@ A comprehensive React application featuring a multi-step form wizard with OpenAI
   - Name: Letters and spaces only
   - National ID: Exactly 8 alphanumeric characters
   - Email: RFC-compliant email format validation
-  - Phone: Pure numbers only (10-15 digits, optional + prefix)
+  - Phone: Pure numbers only (exactly 10 digits)
 - **Real-time Visual Feedback**: Red/green/gray border states
 - **Step-by-step Validation**: Must complete current step to proceed
 - **Error Message Localization**: All validation messages in both languages
@@ -162,7 +162,7 @@ Access the application at `http://localhost:5173`
 - **Gender**: Dropdown selection (Male/Female/Other)
 - **Address**: Free text input
 - **City, State, Country**: Location information
-- **Phone**: Pure numbers only (10-15 digits), supports international format
+- **Phone**: Pure numbers only (exactly 10 digits)
 - **Email**: RFC-compliant email validation
 
 ### **Step 2: Family & Financial Information**
@@ -387,7 +387,7 @@ The application uses a dedicated `localStorage.js` utility module with the follo
   city: "Dubai",
   state: "Dubai",
   country: "UAE",
-  phone: "+971501234567",
+  phone: "0501234567",
   email: "john@example.com",
 
   // Step 2 fields
